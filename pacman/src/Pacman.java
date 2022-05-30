@@ -4,13 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class Pacman extends JFrame {
 
 	final int BOARD_SIZE = 20;
-	ImageIcon[][] board = new ImageIcon[BOARD_SIZE][BOARD_SIZE];
+	JLabel[][] board = new JLabel[BOARD_SIZE][BOARD_SIZE];
 	ImageIcon pacAnt = new ImageIcon("pacAnt.png");
 	
 	private JPanel contentPane;
@@ -45,7 +46,6 @@ public class Pacman extends JFrame {
 		for (int row = 0; row < BOARD_SIZE; row++) {
 			for (int col = 0; col < BOARD_SIZE; col++) {
 				board[row][col].setIcon(pacAnt);
-				// ?
 			}
 		}
 	}
