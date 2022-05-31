@@ -1,6 +1,8 @@
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,8 +13,8 @@ import javax.swing.border.EmptyBorder;
 public class Pacman extends JFrame {
 
 	final int BOARD_SIZE = 20;
-	JLabel[][] board = new JLabel[BOARD_SIZE][BOARD_SIZE];
-	ImageIcon pacAnt = new ImageIcon("pacAnt.png");
+	int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
+	ImageIcon background = new ImageIcon("background.png");
 	
 	private JPanel contentPane;
 
@@ -43,11 +45,14 @@ public class Pacman extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		FlowLayout layout = new FlowLayout();
+		
 		for (int row = 0; row < BOARD_SIZE; row++) {
 			for (int col = 0; col < BOARD_SIZE; col++) {
-				board[row][col].setIcon(pacAnt);
+				
+				this.setLayout(layout);
+				board[row][col].setIcon(background);
 			}
 		}
 	}
-
 }
