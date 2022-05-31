@@ -1,0 +1,13 @@
+create a board using an array of small images
+
+create level arrays
+
+add collision checks
+
+add character
+
+add movement
+
+add enemies
+
+add powerups
