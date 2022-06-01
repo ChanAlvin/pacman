@@ -13,8 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class Pacman extends JFrame {
-	Control control = new Control();
-	
+
 	final int BOARD_SIZE = 20;
 	JPanel panel = new JPanel();
 	int[][] map = {
@@ -100,7 +99,7 @@ public class Pacman extends JFrame {
 				}
 				
 				panel.add(board[row][col]);
-				board[row][col].addKeyListener(control); // change when new event handler class is made
+				// board[row][col].addActionListener(tictac); // change when new event handler class is made
 			}
 		}
 		
