@@ -88,17 +88,12 @@ public class Pacman extends JFrame {
 				board[row][col].setText("");
 
 				panel.add(board[row][col]);
-				board[row][col].addKeyListener(control); // change when new event handler class is made
 			}
 		}
 		
 		mapRead();
 		
 		getContentPane().add(panel);
-		
-		JButton button = new JButton("New button");
-		contentPane.add(button, BorderLayout.NORTH);
-		
 		setVisible(true);
 	}
 	
