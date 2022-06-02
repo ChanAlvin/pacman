@@ -1,9 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 public class Control implements KeyListener {
-	boolean up, down, left, right;
-	Pacman gui = new Pacman();
+	Pacman gui;
+	final int BOARD_SIZE = gui.BOARD_SIZE;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -13,28 +14,20 @@ public class Control implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == 87) {
-			up = true;
-			down = false;
-			left = false;
-			right = false;
-		} else if (e.getKeyCode() == 83) {
-			up = false;
-			down = true;
-			left = false;
-			right = false;
-		} else if (e.getKeyCode()==65) {
-			up = false;
-			down = false;
-			left = true;
-			right = false;
-		} else if (e.getKeyCode()==68) {
-			up = false;
-			down = false;
-			left = false;
-			right = true;
-		}
-	}
+		if (e.getKeyCode() == 87 || e.getKeyCode() == 38) {
+			for (int row = 0; row < BOARD_SIZE; row++) {
+				for (int col = 0; col < BOARD_SIZE; col++) {
+					if (gui.map[row][col] == 1) {
+						gui.map[row][col] = 0;
+						gui.map[row + 1][col] = 1;
+						break;
+					}
+				}
+			}
+			
+			gui.mapRead();
+		} 
+	}	
 
 	@Override
 	public void keyReleased(KeyEvent e) {

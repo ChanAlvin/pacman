@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class Pacman extends JFrame {
-
+	Control control;
+	
 	final int BOARD_SIZE = 20;
 	JPanel panel = new JPanel();
 	int[][] map = {
@@ -78,32 +79,44 @@ public class Pacman extends JFrame {
 		
 		GridLayout layout1 = new GridLayout(BOARD_SIZE, BOARD_SIZE, 1, 1);
 		panel.setLayout(layout1);
-		
-		//map[0][0] = 1;
-		
+
 		for (int row = 0; row < BOARD_SIZE; row++) {
 			for (int col = 0; col < BOARD_SIZE; col++) {
 				name++;
-				
-				switch (map[row][col]) {
-				case 0: 
-					board[row][col] = new JLabel(Integer.toString(name));
-					board[row][col].setIcon(blackTile);
-					board[row][col].setText("");
-					break;
-				case 1:
-					board[row][col] = new JLabel(Integer.toString(name));
-					board[row][col].setIcon(brownTile);
-					board[row][col].setText("");
-					break;
-				}
-				
+
+				board[row][col] = new JLabel(Integer.toString(name));
+				board[row][col].setText("");
+
 				panel.add(board[row][col]);
-				// board[row][col].addActionListener(tictac); // change when new event handler class is made
+				board[row][col].addKeyListener(control); // change when new event handler class is made
 			}
 		}
 		
+		mapRead();
+		
 		getContentPane().add(panel);
+		
+		JButton button = new JButton("New button");
+		contentPane.add(button, BorderLayout.NORTH);
+		
 		setVisible(true);
+	}
+	
+	public void mapRead() {
+		for (int row = 0; row < BOARD_SIZE; row++) {
+			for (int col = 0; col < BOARD_SIZE; col++) {
+				switch (map[row][col]) {
+					case 0: 
+						board[row][col].setIcon(blackTile);
+						break;
+					case 1:
+						board[row][col].setIcon(brownTile);
+						break;
+					case 2:
+						board[row][col].setIcon(pacman);
+						break;
+				}
+			}
+		}
 	}
 }
