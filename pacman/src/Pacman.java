@@ -71,7 +71,7 @@ public class Pacman extends JFrame {
 	 */
 	public Pacman() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 563, 484);
+		setBounds(100, 100, 800, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -79,7 +79,7 @@ public class Pacman extends JFrame {
 		FlowLayout layout = new FlowLayout();
 		getContentPane().setLayout(layout);
 		
-		GridLayout layout1 = new GridLayout(BOARD_SIZE, BOARD_SIZE, 1, 1);
+		GridLayout layout1 = new GridLayout(BOARD_SIZE, BOARD_SIZE,1,1);
 		panel.setLayout(layout1);
 		for (int row = 0; row < BOARD_SIZE; row++) {
 			for (int col = 0; col < BOARD_SIZE; col++) {

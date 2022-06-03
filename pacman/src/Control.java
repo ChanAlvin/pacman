@@ -18,24 +18,36 @@ public class Control implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 87) { // up
-			gui.map[gui.playerR][gui.playerC] = 0;
-			gui.playerR--;
-			gui.map[gui.playerR][gui.playerC] = 1;
+			if(gui.playerR-1>=0) 
+			{
+				gui.map[gui.playerR][gui.playerC] = 0;
+				gui.playerR--;
+				gui.map[gui.playerR][gui.playerC] = 1;
+			}
 		} 
 		else if (e.getKeyCode() == 83) { // down
-			gui.map[gui.playerR][gui.playerC] = 0;
-			gui.playerR++;
-			gui.map[gui.playerR][gui.playerC] = 1;
+			if(gui.playerR+1<gui.BOARD_SIZE)
+			{
+				gui.map[gui.playerR][gui.playerC] = 0;
+				gui.playerR++;
+				gui.map[gui.playerR][gui.playerC] = 1;
+			}
 		} 
 		else if (e.getKeyCode() == 68) { // right
-			gui.map[gui.playerR][gui.playerC] = 0;
-			gui.playerC++;
-			gui.map[gui.playerR][gui.playerC] = 1;
+			if(gui.playerC+1<gui.BOARD_SIZE)
+			{
+				gui.map[gui.playerR][gui.playerC] = 0;
+				gui.playerC++;
+				gui.map[gui.playerR][gui.playerC] = 1;
+			}
 		} 
 		else if (e.getKeyCode() == 65) { // left
-			gui.map[gui.playerR][gui.playerC] = 0;
-			gui.playerC--;
-			gui.map[gui.playerR][gui.playerC] = 1;
+			if(gui.playerC-1>=0)
+			{
+				gui.map[gui.playerR][gui.playerC] = 0;
+				gui.playerC--;
+				gui.map[gui.playerR][gui.playerC] = 1;
+			}
 		} 
 		gui.mapRead();
 		gui.printMap(); 
