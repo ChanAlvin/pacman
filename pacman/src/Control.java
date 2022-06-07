@@ -18,36 +18,49 @@ public class Control implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 87) { // up
-			if(gui.playerR-1>=0) 
+			if(gui.playerR-1>=0 && gui.map[gui.playerR-1][gui.playerC] == 0) 
 			{
 				gui.map[gui.playerR][gui.playerC] = 0;
 				gui.playerR--;
 				gui.map[gui.playerR][gui.playerC] = 1;
 			}
+			gui.pacman = new ImageIcon("pacAntUp.png");
 		} 
-		else if (e.getKeyCode() == 83) { // down
-			if(gui.playerR+1<gui.BOARD_SIZE)
+		else if (e.getKeyCode() == 83 ) { // down
+			if(gui.playerR+1<gui.BOARD_SIZE && gui.map[gui.playerR+1][gui.playerC] == 0)
 			{
 				gui.map[gui.playerR][gui.playerC] = 0;
 				gui.playerR++;
 				gui.map[gui.playerR][gui.playerC] = 1;
 			}
+			gui.pacman = new ImageIcon("pacAntDown.png");
 		} 
 		else if (e.getKeyCode() == 68) { // right
-			if(gui.playerC+1<gui.BOARD_SIZE)
-			{
+			if(gui.playerR == 10 && gui.playerC==20) {
 				gui.map[gui.playerR][gui.playerC] = 0;
-				gui.playerC++;
+				gui.playerC = 0;
 				gui.map[gui.playerR][gui.playerC] = 1;
 			}
+			else if(gui.playerC+1<gui.BOARD_SIZE && gui.map[gui.playerR][gui.playerC+1] == 0)
+			{
+					gui.map[gui.playerR][gui.playerC] = 0;
+					gui.playerC++;
+					gui.map[gui.playerR][gui.playerC] = 1;
+			}
+			gui.pacman = new ImageIcon("pacAntRight.png");
 		} 
 		else if (e.getKeyCode() == 65) { // left
-			if(gui.playerC-1>=0)
-			{
+			if(gui.playerR == 10 && gui.playerC==0) {
+				gui.map[gui.playerR][gui.playerC] = 0;
+				gui.playerC = 20;
+				gui.map[gui.playerR][gui.playerC] = 1;
+			}
+			else if(gui.playerC-1<gui.BOARD_SIZE && gui.map[gui.playerR][gui.playerC-1] == 0) {
 				gui.map[gui.playerR][gui.playerC] = 0;
 				gui.playerC--;
 				gui.map[gui.playerR][gui.playerC] = 1;
 			}
+			 gui.pacman = new ImageIcon("pacAntLeft.png");
 		} 
 		gui.mapRead();
 		gui.printMap(); 
