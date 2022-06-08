@@ -2,8 +2,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Control implements KeyListener {
+public class Control implements KeyListener, ActionListener{
 	Pacman gui;
+	Timer timer; 
+	int timerCounter = 0;
 	
 	public Control (Pacman in){
 		gui = in;
@@ -70,5 +72,14 @@ public class Control implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == timer ) { 
+			timerCounter++;
+		}
+		
 	}
 }
