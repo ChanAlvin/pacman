@@ -13,10 +13,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 public class Pacman extends JFrame implements ActionListener{
+	private JTextField txtScore;
 	Control control = new Control(this);
 	AI ai = new AI(this);
 	
@@ -25,10 +27,34 @@ public class Pacman extends JFrame implements ActionListener{
 	int redC = 0, redR = 0;
 	int greenC = 0, greenR = 0;
 	int purpleC = 0, purpleR = 0;
+	int total = 0;
 	JPanel panel = new JPanel();
 	Timer timer; 
 	int timerCounter = 0;
 	int[][] map = {
+			{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, 
+			{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, 
+			{2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2}, 
+			{2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2}, 
+			{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, 
+			{2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
+			{7, 7, 7, 7, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 2, 0, 2, 7, 7, 7, 7}, 
+			{7, 7, 7, 7, 2, 0, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 7, 7, 7, 7}, 
+			{7, 7, 7, 7, 2, 0, 2, 0, 0, 2, 7, 2, 0, 0, 2, 0, 2, 7, 7, 7, 7}, 
+			{2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 7, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
+			{7, 7, 7, 7, 7, 0, 0, 0, 2, 4, 5, 6, 2, 0, 0, 0, 7, 7, 7, 7, 7}, 
+			{2, 2, 2, 2, 2, 0, 2, 0, 2, 7, 2, 7, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
+			{7, 7, 7, 7, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 7, 7, 7, 7}, 
+			{7, 7, 7, 7, 2, 0, 2, 2, 0, 2, 0, 2, 0, 2, 2, 0, 2, 7, 7, 7, 7}, 
+			{7, 7, 7, 7, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 7, 7, 7, 7}, 
+			{2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 0, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
+			{2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, 
+			{2, 0, 2, 2, 2, 2, 2, 0, 0, 0, 2, 0, 0, 0, 2, 2, 2, 2, 2, 0, 2}, 
+			{2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2},
+			{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+			{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
+			};
+	int[][] ghostMap = {
 			{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, 
 			{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, 
 			{2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2}, 
@@ -40,19 +66,18 @@ public class Pacman extends JFrame implements ActionListener{
 			{0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, 
 			{2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 0, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
 			{0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 5, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0}, 
-			{2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
-			{0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0}, 
+			{2, 2, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
+			{0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0}, 
 			{0, 0, 0, 0, 2, 0, 2, 2, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0, 0, 0, 0}, 
 			{0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, 
 			{2, 2, 2, 2, 2, 0, 2, 0, 2, 2, 0, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2}, 
-			{2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, 
+			{2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, 
 			{2, 0, 2, 2, 2, 2, 2, 0, 0, 0, 2, 0, 0, 0, 2, 2, 2, 2, 2, 0, 2}, 
 			{2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2},
 			{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 			{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
 			};
 	JLabel[][] board = new JLabel[BOARD_SIZE][BOARD_SIZE];
-	int name = 0;
 	ImageIcon blackTile = new ImageIcon("blackTile.png");
 	ImageIcon brownTile = new ImageIcon("brownTile.png");
 	ImageIcon whiteTile = new ImageIcon("whiteTile.png");
@@ -61,6 +86,7 @@ public class Pacman extends JFrame implements ActionListener{
 	ImageIcon redBee = new ImageIcon("redBeeUp.png");
 	ImageIcon greenBee = new ImageIcon("greenBeeUp.png");
 	ImageIcon purpleBee = new ImageIcon("purpleBeeUp.png");
+	ImageIcon blackTileDot = new ImageIcon("blackTileDot.png");
 	
 	private JPanel contentPane;
 
@@ -85,7 +111,7 @@ public class Pacman extends JFrame implements ActionListener{
 	 */
 	public Pacman() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 850, 850);
+		setBounds(100, 100, 900, 900);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -94,12 +120,14 @@ public class Pacman extends JFrame implements ActionListener{
 		getContentPane().setLayout(layout);
 		
 		GridLayout layout1 = new GridLayout(BOARD_SIZE, BOARD_SIZE);
+		GridLayout layout2 = new GridLayout(3,2);
+		
 		panel.setLayout(layout1);
 		for (int row = 0; row < BOARD_SIZE; row++) {
 			for (int col = 0; col < BOARD_SIZE; col++) {
 				board[row][col] = new JLabel();
 				if(map[row][col]==0) {
-					board[row][col].setIcon(blackTile);
+					board[row][col].setIcon(blackTileDot);
 				}
 				else if(map[row][col]==1) {
 					board[row][col].setIcon(pacman);
@@ -127,11 +155,15 @@ public class Pacman extends JFrame implements ActionListener{
 					purpleR = row;
 					purpleC = col;
 				}
+				else if(map[row][col]==7) {
+					board[row][col].setIcon(blackTile);
+				}
 				panel.add(board[row][col]);
 			}
 		};
 		
 		this.add( panel, BorderLayout.CENTER  );
+		this.add( panel, BorderLayout.SOUTH  );
 		timer = new Timer(30, this);
 		timer.start(); // start the time
 		setVisible(true);
@@ -158,7 +190,7 @@ public class Pacman extends JFrame implements ActionListener{
 			for (int col = 0; col < BOARD_SIZE; col++) {
 				switch (map[row][col]) {
 					case 0: 
-						board[row][col].setIcon(blackTile);
+						board[row][col].setIcon(blackTileDot);
 						break;
 					case 1:
 						board[row][col].setIcon(pacman);
@@ -178,8 +210,9 @@ public class Pacman extends JFrame implements ActionListener{
 					case 6:
 						board[row][col].setIcon(purpleBee);
 						break;
-					
-						
+					case 7:
+						board[row][col].setIcon(blackTile);
+						break;
 				}
 			}
 		}
@@ -189,19 +222,15 @@ public class Pacman extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == timer ) { 
-			// Seperate counter created for moving the invaders 
+			 
 			timerCounter++; 
 			timerCounter = timerCounter % 1000000; 
 
-			if (timerCounter % 2 == 0) {
+			if (timerCounter % 1 == 0) {
 				ai.greenBee();
 				ai.redBee();
-				ai.greenBee(); 
 				ai.purpleBee(); 
 			}; 
-
 		}
-		
 	}
-
 }
